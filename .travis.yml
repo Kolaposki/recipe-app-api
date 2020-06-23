@@ -1,6 +1,6 @@
 language: python
 python:
-  - "3.7"
+  - "3.6"
 
 services:
   - docker
@@ -8,5 +8,9 @@ services:
 before_script: pip install docker-compose
 
 script:
+  - docker-compose run app sh -c "python manage.py test && flake8"
   - docker-compose run app sh -c "python app/manage.py test && flake8"
   - docker-compose run app sh -c "python app/app/manage.py test && flake8"
+  - docker-compose run app sh -c "python app/app/app/manage.py test && flake8"
+  - docker-compose run app sh -c "python recipe-app-api/manage.py test && flake8"
+  - docker-compose run app sh -c "python recipe-app-api/app/manage.py test && flake8"
